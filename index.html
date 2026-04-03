@@ -1,10 +1,10 @@
-Мухсина, [4/2/2026 7:58 PM]
+Мухсина, [4/2/2026 8:12 PM]
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Grow Tree — your daily plan</title>
+    <title>Grow Tree — hardcore plan</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
         }
 
         body {
-            background: #1a2a1f;
+            background: #1e3a2f;
             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
             min-height: 100vh;
             display: flex;
@@ -22,35 +22,33 @@
             padding: 20px;
         }
 
-        /* главная карточка */
         .app {
             max-width: 1100px;
             width: 100%;
-            background: #fef7e0;
+            background: #fef3d6;
             border-radius: 64px;
-            padding: 28px 24px 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            padding: 24px 20px 36px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.3);
         }
 
         /* форма */
         .form-card {
-            background: #fff6e0;
+            background: #fff9ed;
             border-radius: 48px;
             padding: 24px;
-            margin-bottom: 20px;
+            margin-bottom: 0;
         }
 
         h1 {
-            font-size: 2rem;
+            font-size: 1.9rem;
             font-weight: 800;
-            color: #2d6a2f;
-            letter-spacing: -0.02em;
+            color: #2b6e2f;
         }
 
         .sub {
-            color: #6b4c3b;
+            color: #7a5a4b;
             margin: 8px 0 24px;
-            border-left: 4px solid #7cb518;
+            border-left: 5px solid #8bc34a;
             padding-left: 16px;
         }
 
@@ -59,19 +57,19 @@
         }
 
         .input-field label {
-            font-weight: 600;
-            color: #3a5e2e;
+            font-weight: 700;
+            color: #3d5e2b;
             display: block;
             margin-bottom: 6px;
         }
 
         .input-field input, .input-field textarea {
             width: 100%;
-            background: #fff9ef;
-            border: 2px solid #d4c5a3;
-            border-radius: 28px;
+            background: #fffcf0;
+            border: 2px solid #ddceaa;
+            border-radius: 32px;
             padding: 12px 18px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-family: inherit;
         }
 
@@ -84,8 +82,8 @@
 
         .mode-btn {
             flex: 1;
-            background: #e8e0c8;
-            border: 2px solid #cbbf9a;
+            background: #e2d7bc;
+            border: 2px solid #c6b689;
             border-radius: 40px;
             padding: 10px;
             text-align: center;
@@ -115,17 +113,29 @@
 
         /* дерево */
         .tree-area {
-            background: #e6dbb5;
+            background: #e2d4ae;
             border-radius: 64px;
-            padding: 24px 16px;
-            margin-top: 24px;
+            padding: 20px 16px;
+            margin-top: 8px;
         }
 
         .tree-header {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             margin-bottom: 20px;
             flex-wrap: wrap;
+            padding: 0 8px;
+        }
+
+        .reset-btn {
+            background: #b9924b;
+            padding: 6px 14px;
+            border-radius: 60px;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
         }
 
         .branches {
@@ -136,61 +146,63 @@
         }
 
         .branch {
-            background: #cdbb8a;
+            background: #cfbc89;
             border-radius: 48px;
-            padding: 20px 16px;
-            min-width: 150px;
+            padding: 20px 12px;
+            min-width: 140px;
             text-align: center;
         }
 
         .branch-title {
             font-weight: bold;
-            background: #f5eac1;
+            background: #f5e9c4;
             display: inline-block;
             padding: 5px 16px;
             border-radius: 40px;
             margin-bottom: 20px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
-        .leaf-cluster {
+Мухсина, [4/2/2026 8:12 PM]
+.leaf-cluster {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 14px;
             align-items: center;
         }
 
-Мухсина, [4/2/2026 7:58 PM]
-.leaf {
-            width: 48px;
-            height: 48px;
-            background: #cfe6cf;
+        .leaf {
+            width: 52px;
+            height: 52px;
+            background: #cfe1c4;
             border-radius: 70% 30% 70% 30%;
             cursor: pointer;
             transition: 0.1s;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
             font-weight: bold;
-            color: #2d4a1e;
+            font-size: 14px;
+            color: #2a4822;
         }
 
         .leaf.pale {
-            background: #d9e0b5;
-            opacity: 0.7;
+            background: #d7e3be;
+            opacity: 0.6;
         }
 
         .leaf.bright {
             background: #a3e635;
-            box-shadow: 0 0 12px #bef264;
-            border: 2px solid #f9f6c3;
+            box-shadow: 0 0 16px #cdff6e;
+            border: 2px solid #fffbcc;
+            color: #1c4d1a;
         }
 
         .leaf.dark {
-            background: #3f7846;
-            color: #e9f5db;
+            background: #3c8c40;
+            color: white;
+            box-shadow: none;
         }
 
         /* модалка */
@@ -200,7 +212,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.85);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -208,10 +220,10 @@
         }
 
         .modal-box {
-            background: #fff6e5;
+            background: #fff7e8;
             border-radius: 48px;
-            max-width: 320px;
-            width: 80%;
+            max-width: 340px;
+            width: 85%;
             padding: 28px;
             text-align: center;
         }
@@ -223,8 +235,10 @@
         }
 
         .task-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid #ddceaa;
+            padding: 10px 0;
+            border-bottom: 1px solid #e2cf9e;
+            display: flex;
+            gap: 10px;
         }
 
         .close-modal {
@@ -234,27 +248,33 @@
             border-radius: 40px;
             font-weight: bold;
             width: 100%;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .cancel-modal {
+            background: #bc9a6a;
             margin-top: 8px;
         }
     </style>
 </head>
 <body>
 <div class="app">
-    <!-- форма -->
-    <div class="form-card" id="formCard">
+    <!-- форма ввода -->
+    <div id="formCard" class="form-card">
         <h1>🌱 FROM DREAM — INTO REALITY</h1>
-        <div class="sub">honestly answering = AI builds plan just for you</div>
+        <div class="sub">honestly answering = AI builds strict plan for you</div>
         <div class="input-field">
             <label>🎯 your specific goal</label>
-            <input type="text" id="goal" placeholder="e.g. healthy body, learn coding...">
+            <input type="text" id="goal" placeholder="e.g. healthy body, run 5km, get fit">
         </div>
         <div class="input-field">
             <label>💪 what do you have? (skills / time)</label>
-            <textarea rows="2" id="have" placeholder="gym, 3 evenings free..."></textarea>
+            <textarea rows="2" id="have" placeholder="gym membership, 4 evenings free, dumbbells"></textarea>
         </div>
         <div class="input-field">
             <label>⚠️ what's stopping you?</label>
-            <textarea rows="2" id="stop" placeholder="fear, laziness, no plan..."></textarea>
+            <textarea rows="2" id="stop" placeholder="laziness, bad sleep, no consistency"></textarea>
         </div>
 
         <div class="mode-row" id="modeRow">
@@ -263,95 +283,87 @@
             <div class="mode-btn active" data-mode="nocomp">⚡ No compromises</div>
         </div>
 
-        <button class="generate-btn" id="generateBtn">✨ GENERATE MY TREE ✨</button>
+        <button id="generateBtn" class="generate-btn">✨ GENERATE MY TREE ✨</button>
     </div>
 
-    <!-- дерево (изначально скрыто) -->
-    <div class="tree-area" id="treeArea" style="display: none;">
+    <!-- дерево (скрыто сначала) -->
+    <div id="treeArea" class="tree-area" style="display: none;">
         <div class="tree-header">
             <span style="font-weight: bold;">🌳 your growing process</span>
-            <span style="font-size: 12px;" id="resetSpan" style="cursor:pointer;">⟳ reset</span>
+            <div id="resetTreeBtn" class="reset-btn">⟳ reset progress</div>
         </div>
         <div id="branchesContainer" class="branches"></div>
-        <div style="text-align: center; margin-top: 20px; font-size: 12px;">✨ click on BRIGHT leaf → see today's tasks</div>
+        <div style="text-align: center; margin-top: 20px; font-size: 12px; color: #4a3b26;">✨ click on BRIGHT leaf → get today's tasks</div>
     </div>
 </div>
 
+Мухсина, [4/2/2026 8:12 PM]
 <script>
-    // ----- данные дерева -----
-    // три ветки = три категории
-    const categories = ["🏋️ TRAINING", "🥗 NUTRITION", "😴 SLEEP"];
-    // дни (листья)
-    const totalDays = 7;
+    // категории (3 ветки)
+    const CATEGORIES = ["🏋️ TRAINING", "🥗 NUTRITION", "😴 SLEEP"];
+    const TOTAL_DAYS = 7;
     
-    // состояния листьев: 'pale' (будущие), 'bright' (сегодня), 'dark' (выполненные)
-
-Мухсина, [4/2/2026 7:58 PM]
-// изначально: день 0 = bright, остальные pale
-    let leafStatus = []; // [ветка][день]
-    
-    // задания для каждого дня и ветки (просто примеры)
-    const taskDB = {
-        "TRAINING": ["🏃 20 min cardio", "🧘 stretch 5 min", "💪 record reps"],
-        "NUTRITION": ["🥦 eat veggies", "💧 2L water", "🍳 cook healthy meal"],
-        "SLEEP": ["🌙 sleep before 23:30", "📵 no phone 1h before bed", "🕯️ dark room"]
+    // база заданий для модалки
+    const TASKS_DB = {
+        "TRAINING": ["🏃 20 min cardio", "🧘 5 min stretching", "💪 log your reps"],
+        "NUTRITION": ["🥦 eat veggies with lunch", "💧 drink 2L water", "🍳 cook one healthy meal"],
+        "SLEEP": ["🌙 sleep before 23:30", "📵 no phone 30min before bed", "🕯️ keep room dark"]
     };
     
+    // матрица состояний листьев: 'pale', 'bright', 'dark'
+    let leafMatrix = [];
     let currentMode = "nocomp";
-    let treeVisible = false;
     
-    // инициализация матрицы
-    function initLeafStatus() {
-        let matrix = [];
-        for (let i = 0; i < categories.length; i++) {
-            let row = [];
-            for (let d = 0; d < totalDays; d++) {
-                if (d === 0) row.push("bright");
-                else row.push("pale");
+    // инициализация: день 0 = bright, остальные pale
+    function initMatrix() {
+        const matrix = [];
+        for (let i = 0; i < CATEGORIES.length; i++) {
+            const row = [];
+            for (let d = 0; d < TOTAL_DAYS; d++) {
+                row.push(d === 0 ? "bright" : "pale");
             }
             matrix.push(row);
         }
         return matrix;
     }
     
-    // рендер дерева (листья)
+    // отрисовка дерева
     function renderTree() {
         const container = document.getElementById("branchesContainer");
         if (!container) return;
         container.innerHTML = "";
         
-        for (let b = 0; b < categories.length; b++) {
+        for (let b = 0; b < CATEGORIES.length; b++) {
             const branchDiv = document.createElement("div");
             branchDiv.className = "branch";
             
             const titleSpan = document.createElement("div");
             titleSpan.className = "branch-title";
-            titleSpan.innerText = categories[b];
+            titleSpan.innerText = CATEGORIES[b];
             branchDiv.appendChild(titleSpan);
             
             const clusterDiv = document.createElement("div");
             clusterDiv.className = "leaf-cluster";
             
-            for (let day = 0; day < totalDays; day++) {
-                const status = leafStatus[b][day];
+            for (let day = 0; day < TOTAL_DAYS; day++) {
+                const status = leafMatrix[b][day];
                 const leaf = document.createElement("div");
                 leaf.className = leaf ${status};
                 leaf.innerText = day + 1;
                 
                 // клик по листу
-                leaf.addEventListener("click", (function(branchIdx, dayIdx, categoryName) {
+                leaf.addEventListener("click", (function(branchIdx, dayIdx, catName) {
                     return function() {
-                        const currentStatus = leafStatus[branchIdx][dayIdx];
-                        if (currentStatus === "bright") {
-                            // открыть модалку с заданиями на сегодня
-                            openTaskModal(branchIdx, dayIdx, categoryName);
-                        } else if (currentStatus === "pale") {
-                            alert("🌱 This leaf is still a bud. Complete today's task first!");
-                        } else if (currentStatus === "dark") {
-                            alert("✅ This day is already done! Good job.");
+                        const st = leafMatrix[branchIdx][dayIdx];
+                        if (st === "bright") {
+                            openTaskModal(branchIdx, dayIdx, catName);
+                        } else if (st === "pale") {
+                            alert("🌱 This leaf is still a bud. Complete today's bright leaf first!");
+                        } else if (st === "dark") {
+                            alert("✅ Already completed! Good job.");
                         }
                     };
-                })(b, day, categories[b]));
+                })(b, day, CATEGORIES[b]));
                 
                 clusterDiv.appendChild(leaf);
             }
@@ -360,80 +372,77 @@
         }
     }
     
-    // модалка с заданиями
+    // модалка с задачами
     function openTaskModal(branchIdx, dayIdx, categoryName) {
-        // получаем базовые задания для категории
         let tasks = [];
-        if (categoryName.includes("TRAINING")) tasks = [...taskDB["TRAINING"]];
-        else if (categoryName.includes("NUTRITION")) tasks = [...taskDB["NUTRITION"]];
-        else tasks = [...taskDB["SLEEP"]];
+        if (categoryName.includes("TRAINING")) tasks = [...TASKS_DB["TRAINING"]];
+        else if (categoryName.includes("NUTRITION")) tasks = [...TASKS_DB["NUTRITION"]];
+        else tasks = [...TASKS_DB["SLEEP"]];
         
-        // добавляем кастомную цель
-        const goalText = document.getElementById("goal").value.trim();
-        if (goalText) tasks.push(✨ step for: "${goalText.slice(0, 40)}");
+        const goalText = document.getElementById("goal")?.value.trim() || "your goal";
+        tasks.push(✨ small step for: "${goalText.slice(0, 45)}");
         
         const modalDiv = document.createElement("div");
         modalDiv.className = "modal";
-        modalDiv.innerHTML = `
+        modalDiv.innerHTML = 
             <div class="modal-box">
                 <h3>📆 Day ${dayIdx+1} · ${categoryName}</h3>
-                <p style="color:#5e7c3c;">🔥 TODAY's tasks — complete them!</p>
+                <p style="color:#6f8f42;">🔥 TODAY's cluster — complete these:</p>
+                <ul class="task-list">
+                    ${tasks.map(t => <li>🌿 ${t}</li>`).join("")}
 
-Мухсина, [4/2/2026 7:58 PM]
-<ul class="task-list">
-                    ${tasks.map(t => <li>🌿 ${t}</li>).join("")}
-                </ul>
-                <button class="close-modal" id="completeTasksBtn">✔️ MARK AS DONE</button>
-                <button class="close-modal" id="cancelModal" style="background:#cdb88a;">Close</button>
+Мухсина, [4/2/2026 8:12 PM]
+</ul>
+                <button class="close-modal" id="completeDayBtn">✔️ MARK AS DONE</button>
+                <button class="close-modal cancel-modal" id="closeModalBtn">CLOSE</button>
             </div>
         `;
         document.body.appendChild(modalDiv);
         
-        const completeBtn = modalDiv.querySelector("#completeTasksBtn");
-        const cancelBtn = modalDiv.querySelector("#cancelModal");
+        const completeBtn = modalDiv.querySelector("#completeDayBtn");
+        const closeBtn = modalDiv.querySelector("#closeModalBtn");
         
         const closeModal = () => modalDiv.remove();
         
         if (completeBtn) {
             completeBtn.addEventListener("click", () => {
-                // меняем текущий лист на dark (выполнен)
-                if (leafStatus[branchIdx][dayIdx] === "bright") {
-                    leafStatus[branchIdx][dayIdx] = "dark";
-                    
-                    // сдвигаем следующий "bright" в этой ветке (первый попавшийся pale)
-                    for (let d = 0; d < totalDays; d++) {
-                        if (leafStatus[branchIdx][d] === "pale") {
-                            leafStatus[branchIdx][d] = "bright";
+                if (leafMatrix[branchIdx][dayIdx] === "bright") {
+                    leafMatrix[branchIdx][dayIdx] = "dark";
+                    // найти следующий pale в этой ветке и сделать bright
+                    for (let d = 0; d < TOTAL_DAYS; d++) {
+                        if (leafMatrix[branchIdx][d] === "pale") {
+                            leafMatrix[branchIdx][d] = "bright";
                             break;
                         }
                     }
                     renderTree();
-                    // проверим, все ли листья стали тёмными (полное выполнение)
+                    
+                    // проверка на полное завершение
                     let allDark = true;
-                    for (let i=0; i<categories.length; i++) {
-                        for (let j=0; j<totalDays; j++) {
-                            if (leafStatus[i][j] !== "dark") allDark = false;
+                    for (let i = 0; i < CATEGORIES.length; i++) {
+                        for (let j = 0; j < TOTAL_DAYS; j++) {
+                            if (leafMatrix[i][j] !== "dark") allDark = false;
                         }
                     }
                     if (allDark) {
                         setTimeout(() => {
-                            alert("🎉💚 AMAZING! Your tree is fully green! You grew up. 🌳💪");
-                        }, 80);
+                            alert("🎉💚 UNBELIEVABLE! Your tree is FULLY GREEN. You grew the whole forest! 🌳🏆");
+                        }, 100);
                     }
                 }
                 closeModal();
             });
         }
-        if (cancelBtn) cancelBtn.addEventListener("click", closeModal);
+        if (closeBtn) closeBtn.addEventListener("click", closeModal);
     }
     
-    // сброс прогресса
-    function resetTreeProgress() {
-        leafStatus = initLeafStatus();
+    // сброс прогресса (все листья как в начале)
+    function resetProgress() {
+        leafMatrix = initMatrix();
         renderTree();
     }
     
-    // генерация плана (валидация для no compromises)
+    // генерация плана с валидацией
     function generatePlan() {
         const goal = document.getElementById("goal").value.trim();
         const have = document.getElementById("have").value.trim();
@@ -441,56 +450,361 @@
         
         if (currentMode === "nocomp") {
             if (goal.length < 5) {
-                alert("❌ NO COMPROMISES: write a SPECIFIC goal. Not just 'be happy'.");
+                alert("❌ NO COMPROMISES: Write a SPECIFIC goal. 'Get fit in 2 months' not just 'be happy'.");
                 return false;
             }
             if (have.length < 3) {
-                alert("❌ List at least one resource you have. Be honest.");
+                alert("❌ List at least one real resource you HAVE. Be honest.");
                 return false;
             }
             if (stop.length < 2) {
-                alert("❌ Tell me what's stopping you. No excuses.");
+                alert("❌ Tell me what's stopping you. No lies, no excuses.");
                 return false;
             }
         }
         
         // инициализируем дерево
-        leafStatus = initLeafStatus();
+        leafMatrix = initMatrix();
         renderTree();
         
-        // показать дерево, спрятать форму
+        // скрыть форму, показать дерево
         document.getElementById("formCard").style.display = "none";
         document.getElementById("treeArea").style.display = "block";
         return true;
     }
     
-    // обработчики режимов
-    const modeBtns = document.querySelectorAll(".mode-btn");
-    modeBtns.forEach(btn => {
-        btn.addEventListener("click", () => {
-            modeBtns.forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-            if (btn.dataset.mode === "soft") currentMode = "soft";
-            else if (btn.dataset.mode === "working") currentMode = "working";
-            else currentMode = "nocomp";
+    // навешиваем обработчики после загрузки страницы
+    window.addEventListener("DOMContentLoaded", () => {
+        // режимы
+        const modeBtns = document.querySelectorAll(".mode-btn");
+        modeBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                modeBtns.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                if (btn.dataset.mode === "soft") currentMode = "soft";
+                else if (btn.dataset.mode === "working") currentMode = "working";
+                else currentMode = "nocomp";
+            });
         });
-    });
+        
+        // кнопка генерации
 
-Мухсина, [4/2/2026 7:58 PM]
-// кнопка генерации
-    document.getElementById("generateBtn").addEventListener("click", () => {
-        generatePlan();
-    });
-    
-    // кнопка сброса
-    document.getElementById("resetSpan")?.addEventListener("click", () => {
-        if (confirm("Reset all progress? Leaves will become buds again.")) {
-            resetTreeProgress();
+Мухсина, [4/2/2026 8:12 PM]
+const genBtn = document.getElementById("generateBtn");
+        if (genBtn) {
+            genBtn.addEventListener("click", generatePlan);
+        }
+        
+        // кнопка сброса (живет внутри treeArea, но обработчик можно повесить динамически)
+        const resetBtn = document.getElementById("resetTreeBtn");
+        if (resetBtn) {
+            resetBtn.addEventListener("click", () => {
+                if (confirm("Reset all progress? All leaves will become buds again.")) {
+                    resetProgress();
+                }
+            });
         }
     });
     
-    // начальное состояние (без дерева)
-    leafStatus = initLeafStatus();
+    // подготовим начальную матрицу (для будущего использования)
+    leafMatrix = initMatrix();
+</script>
+</body>
+</html>
+
+Мухсина, [4/2/2026 8:36 PM]
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Дерево целей</title>
+    <style>
+        body {
+            background: #1e3a2f;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            background: #fef3d6;
+            border-radius: 40px;
+            padding: 20px;
+        }
+        .form-area {
+            background: #fff9ed;
+            padding: 20px;
+            border-radius: 30px;
+        }
+        input, textarea {
+            width: 100%;
+            margin: 8px 0 16px;
+            padding: 10px;
+            border-radius: 30px;
+            border: 1px solid #c2b280;
+        }
+        .mode-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .mode {
+            background: #ddd0aa;
+            padding: 8px;
+            border-radius: 40px;
+            text-align: center;
+            cursor: pointer;
+            flex: 1;
+        }
+        .mode.active {
+            background: #2d6a2f;
+            color: white;
+        }
+        button {
+            background: #7cb518;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 60px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .tree-area {
+            margin-top: 30px;
+            background: #e2d4ae;
+            border-radius: 50px;
+            padding: 20px;
+            text-align: center;
+        }
+        .branch {
+            display: inline-block;
+            width: 30%;
+            margin: 10px;
+            vertical-align: top;
+            background: #cfbc89;
+            border-radius: 40px;
+            padding: 15px;
+        }
+        .leaf {
+            width: 50px;
+            height: 50px;
+            background: #d7e3be;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 5px;
+            line-height: 50px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .bright { background: #a3e635; box-shadow: 0 0 15px yellow; }
+        .dark { background: #3c8c40; color: white; }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 30px;
+            width: 280px;
+            text-align: center;
+        }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div id="formBlock" class="form-area">
+        <h2>🌱 FROM DREAM — INTO REALITY</h2>
+        <input type="text" id="goal" placeholder="Твоя конкретная цель">
+        <textarea id="have" placeholder="Что у тебя есть? (ресурсы, время)"></textarea>
+        <textarea id="stop" placeholder="Что мешает?"></textarea>
+        
+        <div class="mode-buttons">
+            <div class="mode" data-mode="soft">Soft</div>
+            <div class="mode" data-mode="working">Working</div>
+            <div class="mode active" data-mode="hard">⚡ No compromises</div>
+        </div>
+        
+        <button id="startBtn">✨ Создать дерево ✨</button>
+    </div>
+    
+    <div id="treeBlock" class="tree-area hidden">
+        <h3>🌳 Твоё дерево прогресса</h3>
+        <div id="branches"></div>
+        <p><i>Нажми на ярко-зелёный лист → получи задание</i></p>
+        <button id="resetTree">⟳ Сбросить дерево</button>
+    </div>
+</div>
+
+<script>
+    // Категории (3 ветки)
+
+Мухсина, [4/2/2026 8:36 PM]
+const categories = ["🏋️ Тренировки", "🥗 Питание", "😴 Сон"];
+    const daysCount = 7;
+    
+    // Состояния: 'pale', 'bright', 'dark'
+    let treeData = [];
+    let currentMode = "hard";
+    
+    // Задания для модалки
+    function getTasks(cat, day) {
+        let tasks = [];
+        if (cat.includes("Тренировки")) tasks = ["20 мин кардио", "Растяжка 5 мин", "Записать результат"];
+        else if (cat.includes("Питание")) tasks = ["Съесть овощи", "Выпить 2 л воды", "Приготовить здоровую еду"];
+        else tasks = ["Лечь спать до 23:30", "Не смотреть в телефон за час", "Затемнить комнату"];
+        tasks.push(👉 Шаг к цели: ${document.getElementById('goal').value.slice(0, 40)});
+        return tasks;
+    }
+    
+    // Инициализация дерева (день 0 - яркий)
+    function initTree() {
+        let data = [];
+        for (let b = 0; b < categories.length; b++) {
+            let row = [];
+            for (let d = 0; d < daysCount; d++) {
+                row.push(d === 0 ? "bright" : "pale");
+            }
+            data.push(row);
+        }
+        return data;
+    }
+    
+    // Отрисовка дерева
+    function renderTree() {
+        let container = document.getElementById("branches");
+        container.innerHTML = "";
+        for (let b = 0; b < categories.length; b++) {
+            let branchDiv = document.createElement("div");
+            branchDiv.className = "branch";
+            branchDiv.innerHTML = <strong>${categories[b]}</strong><br>;
+            
+            for (let d = 0; d < daysCount; d++) {
+                let leaf = document.createElement("div");
+                leaf.className = "leaf " + treeData[b][d];
+                leaf.innerText = d+1;
+                
+                // клик по листу
+                leaf.onclick = (function(branch, day) {
+                    return function() {
+                        let status = treeData[branch][day];
+                        if (status === "bright") {
+                            let tasks = getTasks(categories[branch], day);
+                            showModal(tasks, branch, day);
+                        } else if (status === "pale") {
+                            alert("🌱 Этот лист ещё не распустился. Сначала выполни сегодняшний!");
+                        } else {
+                            alert("✅ Уже выполнено. Отличная работа!");
+                        }
+                    };
+                })(b, d);
+                
+                branchDiv.appendChild(leaf);
+            }
+            container.appendChild(branchDiv);
+        }
+    }
+    
+    // Модалка с заданиями
+    function showModal(tasks, branchIdx, dayIdx) {
+        let modal = document.createElement("div");
+        modal.className = "modal";
+        modal.innerHTML = 
+            <div class="modal-content">
+                <h4>📋 День ${dayIdx+1}</h4>
+                <ul style="text-align:left">${tasks.map(t => <li>🌿 ${t}</li>).join("")}</ul>
+                <button id="completeBtn">✔️ Выполнил!</button>
+                <button id="closeModal">Закрыть</button>
+            </div>
+        ;
+        document.body.appendChild(modal);
+        
+        document.getElementById("completeBtn").onclick = function() {
+            if (treeData[branchIdx][dayIdx] === "bright") {
+                treeData[branchIdx][dayIdx] = "dark";
+                // следующий бледный -> яркий
+                for (let i = 0; i < daysCount; i++) {
+                    if (treeData[branchIdx][i] === "pale") {
+                        treeData[branchIdx][i] = "bright";
+                        break;
+                    }
+                }
+                renderTree();
+                checkFullComplete();
+            }
+            modal.remove();
+        };
+        document.getElementById("closeModal").onclick = function() { modal.remove(); };
+
+Мухсина, [4/2/2026 8:36 PM]
+}
+    
+    // Проверка, всё ли дерево зелёное
+    function checkFullComplete() {
+        let allDark = true;
+        for (let b = 0; b < categories.length; b++) {
+            for (let d = 0; d < daysCount; d++) {
+                if (treeData[b][d] !== "dark") allDark = false;
+            }
+        }
+        if (allDark) alert("🎉 ПОЗДРАВЛЯЮ! Твоё дерево полностью выросло и расцвело! 🎉");
+    }
+    
+    // Сброс
+    function resetTree() {
+        if (confirm("Сбросить весь прогресс?")) {
+            treeData = initTree();
+            renderTree();
+        }
+    }
+    
+    // Генератор (проверка для No compromises)
+    function generatePlan() {
+        let goal = document.getElementById("goal").value.trim();
+        let have = document.getElementById("have").value.trim();
+        let stop = document.getElementById("stop").value.trim();
+        
+        if (currentMode === "hard") {
+            if (goal.length < 5) { alert("No compromises: напиши КОНКРЕТНУЮ цель!"); return false; }
+            if (have.length < 3) { alert("Укажи хотя бы один реальный ресурс!"); return false; }
+            if (stop.length < 2) { alert("Честно напиши, что тебе мешает!"); return false; }
+        }
+        
+        treeData = initTree();
+        renderTree();
+        document.getElementById("formBlock").classList.add("hidden");
+        document.getElementById("treeBlock").classList.remove("hidden");
+        return true;
+    }
+    
+    // Настройка режимов
+    let modeDivs = document.querySelectorAll(".mode");
+    modeDivs.forEach(m => {
+        m.onclick = function() {
+            modeDivs.forEach(x => x.classList.remove("active"));
+            this.classList.add("active");
+            if (this.innerText.includes("No")) currentMode = "hard";
+            else if (this.innerText.includes("Working")) currentMode = "working";
+            else currentMode = "soft";
+        };
+    });
+    
+    document.getElementById("startBtn").onclick = generatePlan;
+    document.getElementById("resetTree").onclick = resetTree;
+    
+    // Инициализация пустого дерева
+    treeData = initTree();
 </script>
 </body>
 </html>
