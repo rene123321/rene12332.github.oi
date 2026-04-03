@@ -601,5 +601,500 @@ const modeCards = document.querySelectorAll(".mode-card");
     // начальное состояние без дерева
     initStatusMatrix();
 </script>
+    Мухсина, [4/2/2026 7:58 PM]
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Grow Tree — your daily plan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1a2a1f;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* главная карточка */
+        .app {
+            max-width: 1100px;
+            width: 100%;
+            background: #fef7e0;
+            border-radius: 64px;
+            padding: 28px 24px 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        /* форма */
+        .form-card {
+            background: #fff6e0;
+            border-radius: 48px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #2d6a2f;
+            letter-spacing: -0.02em;
+        }
+
+        .sub {
+            color: #6b4c3b;
+            margin: 8px 0 24px;
+            border-left: 4px solid #7cb518;
+            padding-left: 16px;
+        }
+
+        .input-field {
+            margin-bottom: 20px;
+        }
+
+        .input-field label {
+            font-weight: 600;
+            color: #3a5e2e;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .input-field input, .input-field textarea {
+            width: 100%;
+            background: #fff9ef;
+            border: 2px solid #d4c5a3;
+            border-radius: 28px;
+            padding: 12px 18px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .mode-row {
+            display: flex;
+            gap: 12px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .mode-btn {
+            flex: 1;
+            background: #e8e0c8;
+            border: 2px solid #cbbf9a;
+            border-radius: 40px;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+
+        .mode-btn.active {
+            background: #2d6a2f;
+            border-color: #f9c74f;
+            color: white;
+        }
+
+        .generate-btn {
+            background: #7cb518;
+            width: 100%;
+            border: none;
+            padding: 16px;
+            border-radius: 60px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #1f2e1b;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+
+        /* дерево */
+        .tree-area {
+            background: #e6dbb5;
+            border-radius: 64px;
+            padding: 24px 16px;
+            margin-top: 24px;
+        }
+
+        .tree-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .branches {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .branch {
+            background: #cdbb8a;
+            border-radius: 48px;
+            padding: 20px 16px;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .branch-title {
+            font-weight: bold;
+            background: #f5eac1;
+            display: inline-block;
+            padding: 5px 16px;
+            border-radius: 40px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .leaf-cluster {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+        }
+
+Мухсина, [4/2/2026 7:58 PM]
+.leaf {
+            width: 48px;
+            height: 48px;
+            background: #cfe6cf;
+            border-radius: 70% 30% 70% 30%;
+            cursor: pointer;
+            transition: 0.1s;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: #2d4a1e;
+        }
+
+        .leaf.pale {
+            background: #d9e0b5;
+            opacity: 0.7;
+        }
+
+        .leaf.bright {
+            background: #a3e635;
+            box-shadow: 0 0 12px #bef264;
+            border: 2px solid #f9f6c3;
+        }
+
+        .leaf.dark {
+            background: #3f7846;
+            color: #e9f5db;
+        }
+
+        /* модалка */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-box {
+            background: #fff6e5;
+            border-radius: 48px;
+            max-width: 320px;
+            width: 80%;
+            padding: 28px;
+            text-align: center;
+        }
+
+        .task-list {
+            text-align: left;
+            margin: 20px 0;
+            list-style: none;
+        }
+
+        .task-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ddceaa;
+        }
+
+        .close-modal {
+            background: #7cb518;
+            border: none;
+            padding: 12px;
+            border-radius: 40px;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <!-- форма -->
+    <div class="form-card" id="formCard">
+        <h1>🌱 FROM DREAM — INTO REALITY</h1>
+        <div class="sub">honestly answering = AI builds plan just for you</div>
+        <div class="input-field">
+            <label>🎯 your specific goal</label>
+            <input type="text" id="goal" placeholder="e.g. healthy body, learn coding...">
+        </div>
+        <div class="input-field">
+            <label>💪 what do you have? (skills / time)</label>
+            <textarea rows="2" id="have" placeholder="gym, 3 evenings free..."></textarea>
+        </div>
+        <div class="input-field">
+            <label>⚠️ what's stopping you?</label>
+            <textarea rows="2" id="stop" placeholder="fear, laziness, no plan..."></textarea>
+        </div>
+
+        <div class="mode-row" id="modeRow">
+            <div class="mode-btn" data-mode="soft">🌿 Soft</div>
+            <div class="mode-btn" data-mode="working">📌 Working</div>
+            <div class="mode-btn active" data-mode="nocomp">⚡ No compromises</div>
+        </div>
+
+        <button class="generate-btn" id="generateBtn">✨ GENERATE MY TREE ✨</button>
+    </div>
+
+    <!-- дерево (изначально скрыто) -->
+    <div class="tree-area" id="treeArea" style="display: none;">
+        <div class="tree-header">
+            <span style="font-weight: bold;">🌳 your growing process</span>
+            <span style="font-size: 12px;" id="resetSpan" style="cursor:pointer;">⟳ reset</span>
+        </div>
+        <div id="branchesContainer" class="branches"></div>
+        <div style="text-align: center; margin-top: 20px; font-size: 12px;">✨ click on BRIGHT leaf → see today's tasks</div>
+    </div>
+</div>
+
+<script>
+    // ----- данные дерева -----
+    // три ветки = три категории
+    const categories = ["🏋️ TRAINING", "🥗 NUTRITION", "😴 SLEEP"];
+    // дни (листья)
+    const totalDays = 7;
+    
+    // состояния листьев: 'pale' (будущие), 'bright' (сегодня), 'dark' (выполненные)
+
+Мухсина, [4/2/2026 7:58 PM]
+// изначально: день 0 = bright, остальные pale
+    let leafStatus = []; // [ветка][день]
+    
+    // задания для каждого дня и ветки (просто примеры)
+    const taskDB = {
+        "TRAINING": ["🏃 20 min cardio", "🧘 stretch 5 min", "💪 record reps"],
+        "NUTRITION": ["🥦 eat veggies", "💧 2L water", "🍳 cook healthy meal"],
+        "SLEEP": ["🌙 sleep before 23:30", "📵 no phone 1h before bed", "🕯️ dark room"]
+    };
+    
+    let currentMode = "nocomp";
+    let treeVisible = false;
+    
+    // инициализация матрицы
+    function initLeafStatus() {
+        let matrix = [];
+        for (let i = 0; i < categories.length; i++) {
+            let row = [];
+            for (let d = 0; d < totalDays; d++) {
+                if (d === 0) row.push("bright");
+                else row.push("pale");
+            }
+            matrix.push(row);
+        }
+        return matrix;
+    }
+    
+    // рендер дерева (листья)
+    function renderTree() {
+        const container = document.getElementById("branchesContainer");
+        if (!container) return;
+        container.innerHTML = "";
+        
+        for (let b = 0; b < categories.length; b++) {
+            const branchDiv = document.createElement("div");
+            branchDiv.className = "branch";
+            
+            const titleSpan = document.createElement("div");
+            titleSpan.className = "branch-title";
+            titleSpan.innerText = categories[b];
+            branchDiv.appendChild(titleSpan);
+            
+            const clusterDiv = document.createElement("div");
+            clusterDiv.className = "leaf-cluster";
+            
+            for (let day = 0; day < totalDays; day++) {
+                const status = leafStatus[b][day];
+                const leaf = document.createElement("div");
+                leaf.className = leaf ${status};
+                leaf.innerText = day + 1;
+                
+                // клик по листу
+                leaf.addEventListener("click", (function(branchIdx, dayIdx, categoryName) {
+                    return function() {
+                        const currentStatus = leafStatus[branchIdx][dayIdx];
+                        if (currentStatus === "bright") {
+                            // открыть модалку с заданиями на сегодня
+                            openTaskModal(branchIdx, dayIdx, categoryName);
+                        } else if (currentStatus === "pale") {
+                            alert("🌱 This leaf is still a bud. Complete today's task first!");
+                        } else if (currentStatus === "dark") {
+                            alert("✅ This day is already done! Good job.");
+                        }
+                    };
+                })(b, day, categories[b]));
+                
+                clusterDiv.appendChild(leaf);
+            }
+            branchDiv.appendChild(clusterDiv);
+            container.appendChild(branchDiv);
+        }
+    }
+    
+    // модалка с заданиями
+    function openTaskModal(branchIdx, dayIdx, categoryName) {
+        // получаем базовые задания для категории
+        let tasks = [];
+        if (categoryName.includes("TRAINING")) tasks = [...taskDB["TRAINING"]];
+        else if (categoryName.includes("NUTRITION")) tasks = [...taskDB["NUTRITION"]];
+        else tasks = [...taskDB["SLEEP"]];
+        
+        // добавляем кастомную цель
+        const goalText = document.getElementById("goal").value.trim();
+        if (goalText) tasks.push(✨ step for: "${goalText.slice(0, 40)}");
+        
+        const modalDiv = document.createElement("div");
+        modalDiv.className = "modal";
+        modalDiv.innerHTML = `
+            <div class="modal-box">
+                <h3>📆 Day ${dayIdx+1} · ${categoryName}</h3>
+                <p style="color:#5e7c3c;">🔥 TODAY's tasks — complete them!</p>
+
+Мухсина, [4/2/2026 7:58 PM]
+<ul class="task-list">
+                    ${tasks.map(t => <li>🌿 ${t}</li>).join("")}
+                </ul>
+                <button class="close-modal" id="completeTasksBtn">✔️ MARK AS DONE</button>
+                <button class="close-modal" id="cancelModal" style="background:#cdb88a;">Close</button>
+            </div>
+        `;
+        document.body.appendChild(modalDiv);
+        
+        const completeBtn = modalDiv.querySelector("#completeTasksBtn");
+        const cancelBtn = modalDiv.querySelector("#cancelModal");
+        
+        const closeModal = () => modalDiv.remove();
+        
+        if (completeBtn) {
+            completeBtn.addEventListener("click", () => {
+                // меняем текущий лист на dark (выполнен)
+                if (leafStatus[branchIdx][dayIdx] === "bright") {
+                    leafStatus[branchIdx][dayIdx] = "dark";
+                    
+                    // сдвигаем следующий "bright" в этой ветке (первый попавшийся pale)
+                    for (let d = 0; d < totalDays; d++) {
+                        if (leafStatus[branchIdx][d] === "pale") {
+                            leafStatus[branchIdx][d] = "bright";
+                            break;
+                        }
+                    }
+                    renderTree();
+                    // проверим, все ли листья стали тёмными (полное выполнение)
+                    let allDark = true;
+                    for (let i=0; i<categories.length; i++) {
+                        for (let j=0; j<totalDays; j++) {
+                            if (leafStatus[i][j] !== "dark") allDark = false;
+                        }
+                    }
+                    if (allDark) {
+                        setTimeout(() => {
+                            alert("🎉💚 AMAZING! Your tree is fully green! You grew up. 🌳💪");
+                        }, 80);
+                    }
+                }
+                closeModal();
+            });
+        }
+        if (cancelBtn) cancelBtn.addEventListener("click", closeModal);
+    }
+    
+    // сброс прогресса
+    function resetTreeProgress() {
+        leafStatus = initLeafStatus();
+        renderTree();
+    }
+    
+    // генерация плана (валидация для no compromises)
+    function generatePlan() {
+        const goal = document.getElementById("goal").value.trim();
+        const have = document.getElementById("have").value.trim();
+        const stop = document.getElementById("stop").value.trim();
+        
+        if (currentMode === "nocomp") {
+            if (goal.length < 5) {
+                alert("❌ NO COMPROMISES: write a SPECIFIC goal. Not just 'be happy'.");
+                return false;
+            }
+            if (have.length < 3) {
+                alert("❌ List at least one resource you have. Be honest.");
+                return false;
+            }
+            if (stop.length < 2) {
+                alert("❌ Tell me what's stopping you. No excuses.");
+                return false;
+            }
+        }
+        
+        // инициализируем дерево
+        leafStatus = initLeafStatus();
+        renderTree();
+        
+        // показать дерево, спрятать форму
+        document.getElementById("formCard").style.display = "none";
+        document.getElementById("treeArea").style.display = "block";
+        return true;
+    }
+    
+    // обработчики режимов
+    const modeBtns = document.querySelectorAll(".mode-btn");
+    modeBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            modeBtns.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            if (btn.dataset.mode === "soft") currentMode = "soft";
+            else if (btn.dataset.mode === "working") currentMode = "working";
+            else currentMode = "nocomp";
+        });
+    });
+
+Мухсина, [4/2/2026 7:58 PM]
+// кнопка генерации
+    document.getElementById("generateBtn").addEventListener("click", () => {
+        generatePlan();
+    });
+    
+    // кнопка сброса
+    document.getElementById("resetSpan")?.addEventListener("click", () => {
+        if (confirm("Reset all progress? Leaves will become buds again.")) {
+            resetTreeProgress();
+        }
+    });
+    
+    // начальное состояние (без дерева)
+    leafStatus = initLeafStatus();
+</script>
+</body>
+</html>
 </body>
 </html>
