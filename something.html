@@ -1,0 +1,605 @@
+Мухсина, [4/2/2026 8:40 AM]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Grow Tree — No Compromises</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none; /* avoid accidental text selection on taps */
+        }
+
+        body {
+            background: #0a0f1a;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* main card */
+        .app {
+            max-width: 1300px;
+            width: 100%;
+            background: #11161f;
+            border-radius: 48px;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+            padding: 24px 28px 32px;
+            transition: all 0.2s;
+        }
+
+        /* ========= FORM SECTION ========= */
+        .form-section {
+            background: #0e121b;
+            border-radius: 32px;
+            padding: 28px 30px;
+            margin-bottom: 40px;
+            border: 1px solid #232a36;
+        }
+
+        .form-title {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #d4ffb0, #7ee081);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .form-sub {
+            color: #8d98b0;
+            font-size: 0.9rem;
+            border-left: 3px solid #3bdb6b;
+            padding-left: 14px;
+            margin-bottom: 28px;
+        }
+
+        .input-group {
+            margin-bottom: 24px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            color: #cbd5f0;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            letter-spacing: 0.3px;
+        }
+
+        .input-group input, .input-group textarea {
+            width: 100%;
+            background: #05080f;
+            border: 1px solid #2a3342;
+            border-radius: 20px;
+            padding: 14px 18px;
+            color: #f0f3fa;
+            font-size: 0.95rem;
+            font-family: inherit;
+            resize: vertical;
+            transition: 0.2s;
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            outline: none;
+            border-color: #6ce07b;
+            box-shadow: 0 0 0 2px rgba(108,224,123,0.2);
+        }
+
+        .mode-selector {
+            display: flex;
+            gap: 16px;
+            margin: 28px 0 20px;
+            flex-wrap: wrap;
+        }
+
+        .mode-card {
+            flex: 1;
+            background: #0a0e16;
+            border: 1px solid #262e3c;
+            border-radius: 28px;
+            padding: 16px 18px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .mode-card.active {
+            border-color: #6ce07b;
+            background: #102012;
+            box-shadow: 0 0 0 1px #6ce07b;
+        }
+
+        .mode-name {
+            font-weight: 800;
+            font-size: 1.25rem;
+            margin-bottom: 6px;
+        }
+
+        .mode-desc {
+            font-size: 0.7rem;
+            color: #9aa4bf;
+            line-height: 1.3;
+        }
+
+        .generate-btn {
+            background: #6ce07b;
+            border: none;
+            width: 100%;
+            padding: 16px;
+            border-radius: 48px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #0a121c;
+            cursor: pointer;
+            transition: 0.15s;
+            margin-top: 8px;
+            font-family: inherit;
+        }
+
+        .generate-btn:hover {
+            background: #84ff94;
+            transform: scale(0.99);
+        }
+
+Мухсина, [4/2/2026 8:40 AM]
+/* ========= TREE SECTION (dynamic) ========= */
+        .tree-container {
+            background: #0c1019;
+            border-radius: 48px;
+            padding: 20px 10px 30px;
+            border: 1px solid #232b38;
+            transition: all 0.3s;
+        }
+
+        .tree-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 0 20px 16px;
+            flex-wrap: wrap;
+        }
+
+        .tree-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #cbe5cf;
+        }
+
+        .reset-area {
+            font-size: 0.7rem;
+            background: #1e2533;
+            padding: 6px 12px;
+            border-radius: 60px;
+            cursor: pointer;
+            color: #b9c3dc;
+        }
+
+        .branches {
+            display: flex;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+            gap: 30px 20px;
+        }
+
+        .branch {
+            background: rgba(20, 28, 40, 0.6);
+            border-radius: 56px;
+            padding: 20px 16px;
+            min-width: 160px;
+            text-align: center;
+            backdrop-filter: blur(2px);
+        }
+
+        .branch-name {
+            font-weight: 700;
+            background: #1f2a36;
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 60px;
+            font-size: 0.75rem;
+            color: #b5f0bc;
+            margin-bottom: 20px;
+        }
+
+        .clusters {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .cluster {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            background: rgba(0,0,0,0.2);
+            padding: 8px 12px;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.1s ease;
+        }
+
+        .cluster:active {
+            transform: scale(0.96);
+        }
+
+        .flower {
+            width: 32px;
+            height: 32px;
+            background: #ffcf9a;
+            border-radius: 60% 40% 60% 40%;
+            transition: 0.1s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        /* цветовые классы для листьев-цветов */
+        .flower.dark-green { background: #2b7e3a; box-shadow: 0 0 4px #4aff6e; }
+        .flower.bright-green { background: #6fe07b; box-shadow: 0 0 12px #8eff7a; }
+        .flower.pale-green { background: #4f6b55; opacity: 0.7; }
+        .flower.beige { background: #c2a575; filter: grayscale(0.2); }
+
+        .cluster-day {
+            font-size: 10px;
+            font-weight: 500;
+            color: #8f9bb3;
+            text-align: center;
+            margin-top: 4px;
+        }
+
+        /* modal for tasks */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-card {
+            background: #151e2a;
+            max-width: 340px;
+            width: 80%;
+            border-radius: 48px;
+            padding: 28px 24px;
+            border: 1px solid #6ce07b;
+            color: white;
+        }
+
+        .modal-card h3 {
+            font-size: 1.7rem;
+            margin-bottom: 12px;
+        }
+
+        .task-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .task-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #2e3a48;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .close-modal {
+            background: #6ce07b;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 40px;
+            font-weight: bold;
+            margin-top: 12px;
+        }
+
+Мухсина, [4/2/2026 8:40 AM]
+@media (max-width: 700px) {
+            .app { padding: 16px; }
+            .branch { min-width: 130px; }
+            .flower { width: 26px; height: 26px; }
+        }
+    </style>
+</head>
+<body>
+<div class="app" id="app">
+    <!-- форма ввода -->
+    <div class="form-section" id="formSection">
+        <div class="form-title">FROM DREAM — INTO REALITY</div>
+        <div class="form-sub">honestly answering, you get a plan that AI builds strictly according to your data, not a template</div>
+        <div class="input-group">
+            <label>🎯 your specific goal</label>
+            <input type="text" id="goalInput" placeholder="e.g. healthy body, 6-pack, run 5k...">
+        </div>
+        <div class="input-group">
+            <label>💪 what do you have? (skills, contacts, time)</label>
+            <textarea rows="2" id="haveInput" placeholder="gym membership, 3 free evenings..."></textarea>
+        </div>
+        <div class="input-group">
+            <label>⚠️ what's stopping you? (fear, environment, lack)</label>
+            <textarea rows="2" id="stopInput" placeholder="procrastination, no routine, bad sleep"></textarea>
+        </div>
+
+        <div class="mode-selector" id="modeSelector">
+            <div class="mode-card" data-mode="soft">
+                <div class="mode-name">🌱 Soft</div>
+                <div class="mode-desc">supportive, gentle deadlines</div>
+            </div>
+            <div class="mode-card" data-mode="working">
+                <div class="mode-name">📌 Working</div>
+                <div class="mode-desc">concrete steps & timelines</div>
+            </div>
+            <div class="mode-card active" data-mode="nocompromise">
+                <div class="mode-name">⚡ NO COMPROMISES</div>
+                <div class="mode-desc">AI fact-checks you. Unrealistic? No plan.</div>
+            </div>
+        </div>
+
+        <button class="generate-btn" id="generateBtn">✨ GENERATE MY TREE ✨</button>
+    </div>
+
+    <!-- область дерева (изначально скрыта) -->
+    <div class="tree-container" id="treeContainer" style="display: none;">
+        <div class="tree-header">
+            <div class="tree-title">🌳 your growing process</div>
+            <div class="reset-area" id="resetProgressBtn">⟳ reset progress</div>
+        </div>
+        <div class="branches" id="branchesContainer"></div>
+        <div style="text-align: center; margin-top: 24px; font-size: 12px; color: #5b6e8a;">⬤ dark = done &nbsp;|&nbsp; 🔆 bright = today &nbsp;|&nbsp; ◌ pale = future &nbsp;|&nbsp; 🍂 beige = missed</div>
+    </div>
+</div>
+
+<script>
+    // ----- глобальное состояние дерева (пример для 3 веток, 6 дней)
+    let treeData = {
+        categories: ["🏋️ TRAINING", "🥗 NUTRITION", "😴 SLEEP"],
+        daysCount: 6,
+        // статусы: 'dark' = done, 'bright' = today, 'pale' = future, 'beige' = missed
+        statusMatrix: [] // [branchIndex][dayIndex]
+    };
+
+    let currentPlanGenerated = false;
+    let selectedMode = "nocompromise"; // soft, working, nocompromise
+
+    // Имитация заданий для каждого дня (для модалки)
+    const tasksExamples = {
+        "TRAINING": ["20min cardio", "stretch 5min", "record reps"],
+        "NUTRITION": ["no sugar breakfast", "2L water", "veg lunch"],
+        "SLEEP": ["sleep before 23:30", "no phone 1h before", "dark room"]
+    };
+
+    // инициализация матрицы (по умолчанию: day0 - bright, day1-5 pale)
+    function initStatusMatrix() {
+        let matrix = [];
+        for (let b = 0; b < treeData.categories.length; b++) {
+            let row = [];
+            for (let d = 0; d < treeData.daysCount; d++) {
+                if (d === 0) row.push("bright");
+                else row.push("pale");
+            }
+            matrix.push(row);
+        }
+        treeData.statusMatrix = matrix;
+    }
+
+    // рендер дерева (грозди-цветы)
+
+Мухсина, [4/2/2026 8:40 AM]
+function renderTree() {
+        const container = document.getElementById("branchesContainer");
+        if (!container) return;
+        container.innerHTML = "";
+        const categories = treeData.categories;
+        const matrix = treeData.statusMatrix;
+        const days = treeData.daysCount;
+
+        for (let b = 0; b < categories.length; b++) {
+            const branchDiv = document.createElement("div");
+            branchDiv.className = "branch";
+            branchDiv.innerHTML = <div class="branch-name">${categories[b]}</div>;
+            const clustersDiv = document.createElement("div");
+            clustersDiv.className = "clusters";
+
+            for (let day = 0; day < days; day++) {
+                const status = matrix[b][day];
+                let flowerClass = "flower ";
+                if (status === "dark") flowerClass += "dark-green";
+                else if (status === "bright") flowerClass += "bright-green";
+                else if (status === "pale") flowerClass += "pale-green";
+                else if (status === "beige") flowerClass += "beige";
+
+                const cluster = document.createElement("div");
+                cluster.className = "cluster";
+                // создаём от 3 до 5 цветков в грозди (символ листьев)
+                const flowersCount = 4;
+                for (let f = 0; f < flowersCount; f++) {
+                    const flower = document.createElement("div");
+                    flower.className = flowerClass;
+                    cluster.appendChild(flower);
+                }
+                const dayLabel = document.createElement("div");
+                dayLabel.className = "cluster-day";
+                dayLabel.innerText = day ${day+1};
+                cluster.appendChild(dayLabel);
+                
+                // клик по грозди -> открыть задачи
+                cluster.addEventListener("click", (function(bIdx, dIdx, catName) {
+                    return function() { openTaskModal(bIdx, dIdx, catName); };
+                })(b, day, categories[b]));
+                
+                clustersDiv.appendChild(cluster);
+            }
+            branchDiv.appendChild(clustersDiv);
+            container.appendChild(branchDiv);
+        }
+    }
+
+    // модалка с чеклистом (имитация заданий)
+    function openTaskModal(branchIdx, dayIdx, categoryName) {
+        const status = treeData.statusMatrix[branchIdx][dayIdx];
+        const isPast = (status === "dark" || status === "beige");
+        const isToday = (status === "bright");
+        
+        let tasks = [];
+        if (categoryName.includes("TRAINING")) tasks = [...tasksExamples["TRAINING"]];
+        else if (categoryName.includes("NUTRITION")) tasks = [...tasksExamples["NUTRITION"]];
+        else tasks = [...tasksExamples["SLEEP"]];
+        
+        // добавим кастомные слова из целей (если есть)
+        const goalText = document.getElementById("goalInput")?.value || "your goal";
+        tasks.push(✓ small step for: ${goalText.substring(0, 30)});
+        
+        const modalDiv = document.createElement("div");
+        modalDiv.className = "modal";
+        modalDiv.innerHTML = 
+            <div class="modal-card">
+                <h3>📆 Day ${dayIdx+1} · ${categoryName}</h3>
+                <p style="color:#b1f0b3; font-size:13px">${isToday ? "🔥 TODAY's cluster — you can complete it!" : (isPast ? (status==='dark' ? "✅ Already done." : "🍂 Missed day. You can still catch up?") : "🔮 Future tasks")}</p>
+                <ul class="task-list">
+                    ${tasks.map(t => <li><span>🌿</span> ${t}</li>).join("")}
+                </ul>
+                ${(isToday || status === "beige") ? <button class="close-modal" id="completeDayBtn">✔️ MARK AS DONE (dark green)</button> : <button class="close-modal" id="closeModalBtn">OK</button>`}
+
+Мухсина, [4/2/2026 8:40 AM]
+</div>
+        `;
+        document.body.appendChild(modalDiv);
+        
+        const closeBtn = modalDiv.querySelector("#closeModalBtn");
+        const completeBtn = modalDiv.querySelector("#completeDayBtn");
+        
+        const closeModal = () => modalDiv.remove();
+        
+        if (closeBtn) closeBtn.addEventListener("click", closeModal);
+        if (completeBtn) {
+            completeBtn.addEventListener("click", () => {
+                // меняем статус на dark (выполнено)
+                if (treeData.statusMatrix[branchIdx][dayIdx] === "bright" || treeData.statusMatrix[branchIdx][dayIdx] === "beige") {
+                    treeData.statusMatrix[branchIdx][dayIdx] = "dark";
+                    // после выполнения, сдвигаем следующий "bright" если нужно (автоматически сегодняшний день переключается на следующий невыполненный)
+                    // упрощенно: ищем самый ранний день в этой ветке который pale и делаем bright
+                    for (let d = 0; d < treeData.daysCount; d++) {
+                        if (treeData.statusMatrix[branchIdx][d] === "pale") {
+                            treeData.statusMatrix[branchIdx][d] = "bright";
+                            break;
+                        }
+                    }
+                    renderTree();
+                    checkFullCompletion(); // проверка: все ли темно-зеленые?
+                }
+                closeModal();
+            });
+        }
+    }
+    
+    // функция проверки, все ли грозди стали тёмно-зелёными (dark)
+    function checkFullCompletion() {
+        let allDark = true;
+        for (let b=0; b<treeData.categories.length; b++) {
+            for (let d=0; d<treeData.daysCount; d++) {
+                if (treeData.statusMatrix[b][d] !== "dark") allDark = false;
+            }
+        }
+        if (allDark && currentPlanGenerated) {
+            setTimeout(() => {
+                alert("🎉✨ AMAZING! Your tree has blossomed into a full, lush crown! ✨🎉\n\nAll clusters are dark green → you grew up the tree. No compromises done right.");
+            }, 80);
+        }
+    }
+    
+    // генерация плана (имитация AI)
+    function generatePlan() {
+        const goal = document.getElementById("goalInput").value.trim();
+        const have = document.getElementById("haveInput").value.trim();
+        const stop = document.getElementById("stopInput").value.trim();
+        
+        if (selectedMode === "nocompromise") {
+            if (goal.length < 5) {
+                alert("❌ NO COMPROMISES: your goal is too vague. Be specific! (e.g. 'lose 5kg in 2 months')");
+                return false;
+            }
+            if (have.length < 3) {
+                alert("❌ NO COMPROMISES: you must list at least one real resource.");
+                return false;
+            }
+            if (stop.length < 2) {
+                alert("❌ NO COMPROMISES: admit what's stopping you. No lies.");
+                return false;
+            }
+        }
+        
+        // сброс дерева и инициализация новой матрицы
+        initStatusMatrix();
+        // подстройка количества дней: по дефолту 6, но если цель сложная, сделаем 8
+        if (goal.length > 20) treeData.daysCount = 8;
+        else treeData.daysCount = 6;
+        initStatusMatrix(); // пересоздать с новым количеством дней
+        renderTree();
+        return true;
+    }
+    
+    // сброс прогресса (все статусы, кроме day0 bright, остальные pale)
+    function resetProgress() {
+        if (!currentPlanGenerated) return;
+        for (let b=0; b<treeData.categories.length; b++) {
+            for (let d=0; d<treeData.daysCount; d++) {
+                if (d === 0) treeData.statusMatrix[b][d] = "bright";
+                else treeData.statusMatrix[b][d] = "pale";
+            }
+        }
+        renderTree();
+    }
+    
+    // ----- выбор режима (карточки)
+
+Мухсина, [4/2/2026 8:40 AM]
+const modeCards = document.querySelectorAll(".mode-card");
+    modeCards.forEach(card => {
+        card.addEventListener("click", () => {
+            modeCards.forEach(c => c.classList.remove("active"));
+            card.classList.add("active");
+            if (card.dataset.mode === "soft") selectedMode = "soft";
+            else if (card.dataset.mode === "working") selectedMode = "working";
+            else selectedMode = "nocompromise";
+        });
+    });
+    
+    // кнопка генерации
+    const genBtn = document.getElementById("generateBtn");
+    const treeContainer = document.getElementById("treeContainer");
+    const formSection = document.getElementById("formSection");
+    const resetBtn = document.getElementById("resetProgressBtn");
+    
+    genBtn.addEventListener("click", () => {
+        const success = generatePlan();
+        if (success) {
+            currentPlanGenerated = true;
+            formSection.style.display = "none";
+            treeContainer.style.display = "block";
+        }
+    });
+    
+    if (resetBtn) {
+        resetBtn.addEventListener("click", resetProgress);
+    }
+    
+    // начальное состояние без дерева
+    initStatusMatrix();
+</script>
+</body>
+</html>
